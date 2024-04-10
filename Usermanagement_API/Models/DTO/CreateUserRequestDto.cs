@@ -5,7 +5,8 @@ namespace Usermanagement_API.Models.DTO
 {
     public class CreateUserRequestDto
     {
-
+        [Required]
+        public string Id { get; set; }
         [Required]
         public string firstName { get; set; }
         [Required]

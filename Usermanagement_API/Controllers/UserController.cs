@@ -37,7 +37,7 @@ namespace Usermanagement_API.Controllers
             // Map DTO to Domain Model
             var user = new User
             {
-
+                Id = request.Id,
                 firstName = request.firstName,
                 lastName = request.lastName,
                 email = request.email,
@@ -120,16 +120,15 @@ namespace Usermanagement_API.Controllers
         {
             var users = await userRepository
                 .GetUsersAsync(search, orderBy, orderDirection, pageNumber, pageSize);
-            var dataSource = new List<UserDto>();
+            var dataSource = new List<GetUserDto>();
             foreach (var user in users)
             {
-                dataSource.Add(new UserDto
+                dataSource.Add(new GetUserDto
                 {
-                    Id = user.Id,
+                    UserId = user.Id,
                     firstName = user.firstName,
                     lastName = user.lastName,
                     email = user.email,
-                    phone = user.phone,
                     Role = new Role
                     {
                         roleId = user.roleId,
@@ -141,6 +140,7 @@ namespace Usermanagement_API.Controllers
                         permissionId = p.permissionId,
                         permissionName = permissionRepository.GetPermissionByIdAsync(p.permissionId).Result.permissionName,
                     }).ToList(),
+                    CreatedDate = user.CreatedDate,
                 });
             }
             var response = new
