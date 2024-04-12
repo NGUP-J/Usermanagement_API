@@ -89,10 +89,13 @@ namespace Usermanagement_API.Controllers
                     roleName = roleRepository.GetRoleByIdAsync(user.roleId).Result.roleName,
                 },
                 username = user.username,
-                permissions = user.UserPermissions.Select(p => new Permission
+                permissions = user.UserPermissions.Select(p => new PermissionDto
                 {
                     permissionId = p.permissionId,
                     permissionName = permissionRepository.GetPermissionByIdAsync(p.permissionId).Result.permissionName,
+                    isReadable = p.isReadable,
+                    isWritable = p.isWritable,
+                    isDeletable = p.isDeletable
                 }).ToList(),
             };
 
@@ -176,11 +179,19 @@ namespace Usermanagement_API.Controllers
                     roleName = roleRepository.GetRoleByIdAsync(user.roleId).Result.roleName,
                 },
                 username = user.username,
-                permissions = user.UserPermissions.Select(p => new Permission
+                //permissions = user.UserPermissions.Select(p => new Permission
+                //{
+                //    permissionId = p.permissionId,
+                //    permissionName = permissionRepository.GetPermissionByIdAsync(p.permissionId).Result.permissionName,
+                //}).ToList(),
+                permissions = user.UserPermissions.Select(p => new PermissionDto
                 {
                     permissionId = p.permissionId,
                     permissionName = permissionRepository.GetPermissionByIdAsync(p.permissionId).Result.permissionName,
-                }).ToList(),
+                    isReadable = p.isReadable,
+                    isWritable = p.isWritable,
+                    isDeletable = p.isDeletable
+                }).ToList(),    
 
             };
 
@@ -260,10 +271,13 @@ namespace Usermanagement_API.Controllers
                     roleName = roleRepository.GetRoleByIdAsync(user.roleId).Result.roleName,
                 },
                 username = user.username,
-                permissions = user.UserPermissions.Select(p => new Permission
+                permissions = user.UserPermissions.Select(p => new PermissionDto
                 {
                     permissionId = p.permissionId,
                     permissionName = permissionRepository.GetPermissionByIdAsync(p.permissionId).Result.permissionName,
+                    isReadable = p.isReadable,
+                    isWritable = p.isWritable,
+                    isDeletable = p.isDeletable
                 }).ToList(),
 
             };

@@ -89,11 +89,17 @@ namespace Usermanagement_API.Repositories.Implementation
 
         public async Task<User?> DeleteAsync(string id)
         {
-            var existingUser = await dbcontext.Users.FirstOrDefaultAsync(u => u.Id == id);
+            var existingUser = await dbcontext.Users.Include(u => u.UserPermissions).FirstOrDefaultAsync(u => u.Id == id);
             if (existingUser == null)
             {
                 return null;
             }
+
+            if (existingUser.UserPermissions != null && existingUser.UserPermissions.Any())
+            {
+                dbcontext.UserPermissions.RemoveRange(existingUser.UserPermissions);
+            }
+
             dbcontext.Users.Remove(existingUser);
             await dbcontext.SaveChangesAsync();
             return existingUser;

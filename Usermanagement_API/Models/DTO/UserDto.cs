@@ -12,6 +12,15 @@ namespace Usermanagement_API.Models.DTO
         public string phone { get; set; } = "";
         public Role Role { get; set; }
         public string username { get; set; }
-        public List<Permission>? permissions { get; set; }
-    } 
+        public List<PermissionDto>? permissions { get; set; }
+    }
+    public class PermissionDto
+    {
+        public string? permissionId { get; set; }
+        public string? permissionName { get; set; }
+        public bool isReadable { get; set; }
+        public bool isWritable { get; set; }
+        public bool isDeletable { get; set; }
+
+    }
 }
