@@ -12,6 +12,6 @@ namespace Usermanagement_API.Models.DTO
         public Role Role { get; set; }
         public string username { get; set; }
         public List<Permission>? permissions { get; set; }
-        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
+        public string CreatedDate { get; set; }
     }
 }

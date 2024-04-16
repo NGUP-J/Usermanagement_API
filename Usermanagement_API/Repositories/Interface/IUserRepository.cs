@@ -18,5 +18,7 @@ namespace Usermanagement_API.Repositories.Interface
         Task<User?> UpdateAsync(User user);
 
         Task<User?> DeleteAsync(string id);
+
+        Task<int> GetUsersCountAsync();
     }
 }

@@ -143,7 +143,7 @@ namespace Usermanagement_API.Controllers
                         permissionId = p.permissionId,
                         permissionName = permissionRepository.GetPermissionByIdAsync(p.permissionId).Result.permissionName,
                     }).ToList(),
-                    CreatedDate = user.CreatedDate,
+                    CreatedDate = user.CreatedDate.ToShortDateString(),
                 });
             }
             var response = new
@@ -323,6 +323,27 @@ namespace Usermanagement_API.Controllers
             };
 
             return Ok(response);
+        }
+
+        // GET: api/user/count
+        [HttpGet]
+        [Route("count")]
+        public async Task<IActionResult> GetUsersCount()
+        {
+            var users = await userRepository.GetUsersCountAsync();
+            //var response = new
+            //{
+            //    status = new
+            //    {
+            //        code = StatusCodes.Status200OK.ToString(),
+            //        description = "User count fetched successfully",
+            //    },
+            //    data = new
+            //    {
+            //        count = users,
+            //    }
+            //};
+            return Ok(users);
         }
     }
 

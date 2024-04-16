@@ -63,7 +63,6 @@ namespace Usermanagement_API.Repositories.Implementation
 
         public async Task<User?> UpdateAsync(User user)
         {
-            //var existingUser = await dbcontext.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
 
             var existingUser = await dbcontext.Users.Include(u => u.UserPermissions).FirstOrDefaultAsync(u => u.Id == user.Id);
 
@@ -73,11 +72,6 @@ namespace Usermanagement_API.Repositories.Implementation
 
             dbcontext.Entry(existingUser).CurrentValues.SetValues(user);
 
-            //foreach (var permission in user.UserPermissions)
-            //{
-            //    permission.userId = user.Id.ToString();
-            //    existingUser.UserPermissions.Add(permission);
-            //}
 
             existingUser.UserPermissions = user.UserPermissions;
 
@@ -104,6 +98,11 @@ namespace Usermanagement_API.Repositories.Implementation
             await dbcontext.SaveChangesAsync();
             return existingUser;
             
+        }
+
+        public async Task<int> GetUsersCountAsync()
+        {
+            return await dbcontext.Users.CountAsync();
         }
     }
 }
