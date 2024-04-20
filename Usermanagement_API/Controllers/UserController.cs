@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Numerics;
@@ -30,8 +31,9 @@ namespace Usermanagement_API.Controllers
             this.permissionRepository = permissionRepository;
         }
 
-
+        // POST: api/user
         [HttpPost]
+        [Authorize(Roles = "Editor")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserRequestDto request)
         {
             // Map DTO to Domain Model
@@ -210,6 +212,7 @@ namespace Usermanagement_API.Controllers
         // PUT: api/user/{id}
         [HttpPut]
         [Route("{id}")]
+        [Authorize(Roles = "Editor")]
         public async Task<IActionResult> EditUser([FromRoute] string id, [FromBody] UpdateUserRequestDto request)
         {
             var user = await userRepository.GetUserByIdAsync(id);
@@ -298,6 +301,7 @@ namespace Usermanagement_API.Controllers
         // DELETE: api/user/{id}
         [HttpDelete]
         [Route("{id}")]
+        [Authorize(Roles = "Editor")]
         public async Task<IActionResult> DeleteUser([FromRoute] string id)
         {
             var user = await userRepository.DeleteAsync(id);
